@@ -1,28 +1,3 @@
-# Fully typed Fastify + React starter kit <!-- omit in toc -->
-
-This project is a starter kit for building applications with Fastify and React in TypeScript.
-
-- [Reasons for it](#reasons-for-it)
-- [How to use it](#how-to-use-it)
-- [Description](#description)
-  - [Database (SQL + Prisma)](#database-sql--prisma)
-  - [Backend (Fastify + TRPC)](#backend-fastify--trpc)
-  - [State management (Jotai)](#state-management-jotai)
-  - [Testing (Vitest)](#testing-vitest)
-  - [SSR](#ssr)
-- [Deployment](#deployment)
-  - [Continuous deployment](#continuous-deployment)
-  - [flyctl CLI](#flyctl-cli)
-  - [Dockerfile](#dockerfile)
-  - [Database (SQLite)](#database-sqlite)
-
-## Reasons for it
-
-* having an alternative to NextJS with more control over its components
-* API + Frontend in the same place allows quicker development
-* using latest Node version and being limited by Lambda's Node version
-* E2E type safety, ready to use
-
 ## How to use it
 
 ```bash
@@ -30,8 +5,6 @@ npm install            # install dependencies
 npx prisma migrate dev # run migrations
 npm run dev            # start project on localhost:3000
 ```
-
-Deployed to [fastify-react-ts.fly.dev](https://fastify-react-ts.fly.dev)
 
 ## Description
 
@@ -85,14 +58,13 @@ As mentioned clearly on [Fly.io](https://fly.io) home page, the CLI is the first
 I try to stay away from Docker if I can... but I keep coming back at it as soon as I want more control over the configuration.
 The current Dockerfile creates uses a base Debian image with Node 18 and it.
 
-* fly CLI detects the type of project automatically
-* port 3000 is exposed on Dockerfile and picked up by fly.io by [internal_port](https://fly.io/docs/reference/configuration/) configuration setting in fly.toml
-* env vars are passed from fly.toml
-* secrets, like a database URL [can be added through CLI](https://fly.io/docs/reference/secrets/)
-* in the `./start.sh` script I run database migrations before starting the Node app
+- fly CLI detects the type of project automatically
+- port 3000 is exposed on Dockerfile and picked up by fly.io by [internal_port](https://fly.io/docs/reference/configuration/) configuration setting in fly.toml
+- env vars are passed from fly.toml
+- secrets, like a database URL [can be added through CLI](https://fly.io/docs/reference/secrets/)
+- in the `./start.sh` script I run database migrations before starting the Node app
 
 ### Database (SQLite)
 
 I didn't want to commit to a running PostgreSQL instance for this project and used SQLite.  
 By using [fly.io volumes](https://fly.io/docs/reference/volumes/) and the `[mounts]` section in fly.toml I have a persistent disk access on the path `/data` that I use for storing SQLite data.
-
