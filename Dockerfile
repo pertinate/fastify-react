@@ -10,9 +10,6 @@ WORKDIR /app
 ADD . .
 RUN npm install
 
-ENV VITE_GOOGLE_VERIFICATION_ID=DWJzynK0G_OH0vIHTVF5UF_vQbULL4WNGBRfex92mPs
-ENV VITE_SITE_NAME=fastify-react-ts
-
 RUN npm run build
 RUN npm prune --production
 
